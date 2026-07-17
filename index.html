@@ -101,19 +101,28 @@
 
   /* Triangular status indicator next to the business name */
   .brand .status-dot{
+    position: relative;
     width:10px;
     height:9px;
     border-radius:0;
     background: var(--signal-cyan);
     box-shadow: none;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    animation: pulse-triangle 2.2s infinite;
+    animation: none;
+  }
+
+  .brand .status-dot::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: var(--signal-cyan);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: pulse-triangle 2s ease-out infinite;
   }
 
   @keyframes pulse-triangle{
-    0%   { filter: drop-shadow(0 0 0 rgba(95,209,222,0.6)); }
-    70%  { filter: drop-shadow(0 0 5px rgba(95,209,222,0)); }
-    100% { filter: drop-shadow(0 0 0 rgba(95,209,222,0)); }
+    0%   { transform: scale(1);   opacity: 0.7; }
+    100% { transform: scale(2.6); opacity: 0; }
   }
 
   .nav-links{
@@ -331,14 +340,6 @@
   .service-card::after{
     bottom:-1px; right:-1px;
     border-width: 0 2px 2px 0;
-  }
-
-  .service-card .index{
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--signal-cyan);
-    display:block;
-    margin-bottom: 1rem;
   }
 
   .service-card h3{
@@ -652,6 +653,7 @@
   @media (prefers-reduced-motion: reduce){
     .carousel-track{ animation: none; }
     .status-dot{ animation: none; }
+    .brand .status-dot::after{ animation: none; display:none; }
     *{ transition: none !important; }
   }
 
@@ -690,7 +692,7 @@
     <div class="section-head">
       <div class="eyebrow">Services</div>
       <h2>What we do</h2>
-      <p>Five core disciplines, one accountable team.</p>
+      <p>Multiple disciplines, one accountable team.</p>
     </div>
     <div class="carousel-track-wrap">
       <div class="carousel-track" id="carouselTrack">
@@ -748,6 +750,8 @@
               <option value="Cybersecurity">Cybersecurity</option>
               <option value="Cloud Solutions">Cloud Solutions</option>
               <option value="Systems Administration">Systems Administration</option>
+              <option value="Software & App Development">Software & App Development</option>
+              <option value="IT Consulting & Training">IT Consulting & Training</option>
             </select>
           </div>
 
@@ -770,8 +774,8 @@
 
       <div class="form-success" id="formSuccess">
         <span class="status-dot" style="position:static;"></span>
-        <h3>Request received</h3>
-        <p>We'll confirm your appointment by email shortly.</p>
+        <h3>Appointment booked</h3>
+        <p>Confirm your appointment by email shortly.</p>
       </div>
     </div>
   </div>
@@ -783,12 +787,14 @@
     { title: "Managed IT Support", desc: "Day-to-day helpdesk, monitoring and rapid response." },
     { title: "Cybersecurity", desc: "Threat monitoring, endpoint protection,IAM and systems hardening." },
     { title: "Cloud Solutions", desc: "Migration, backup and management of cloud infrastructure and storage." },
-    { title: "Systems Administration", desc: "Server creation,maintenance and performance tuning." }
+    { title: "Systems Administration", desc: "Server creation,maintenance and performance tuning." },
+    { title: "AI Systems", desc: "Local and cloud-based artificial intelligence solutions." },
+    { title: "Custom Builds", desc: "PCs,servers,mainframes,embedded devices,POS systems & IOT." }
   ];
 
   const clients = [
     { initials: "KNADS", name: "Kenya National Archives & Documentation Services", caption: "Creation and maintenance of ATOM Archiving system, Network restructuring and maintenance." },
-    { initials: "RAIN", name: "Rain(pty) Ltd", caption: "Design and deployment of NVIDIA server clusters,suppporting GeForce Now implementation,technical consultancy." },
+    { initials: "RAIN", name: "Rain(pty) Ltd South Africa", caption: "Design and deployment of NVIDIA server clusters,suppporting GeForce Now implementation,technical consultancy." },
     { initials: "CARREFOUR", name: "Carrefour Uganda", caption: "Logical systems design for POS and security systems,mainframe assembly and customization." }
   ];
 
@@ -822,9 +828,8 @@
 
   // ---------- Render services (duplicated once for seamless marquee) ----------
   const track = document.getElementById('carouselTrack');
-  const renderServiceCard = (s, i) => `
+  const renderServiceCard = (s) => `
     <div class="service-card">
-      <span class="index">0${i + 1}</span>
       <h3>${s.title}</h3>
       <p>${s.desc}</p>
     </div>
@@ -866,6 +871,7 @@
   const bookAppointmentLink = document.getElementById('bookAppointmentLink');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
   const bookingForm = document.getElementById('bookingForm');
+  const bookingFormWrap = document.getElementById('bookingFormWrap');
   const formSuccess = document.getElementById('formSuccess');
 
   function openBookingModal(e){
@@ -883,7 +889,7 @@
 
   function resetBookingModal(){
     bookingForm.reset();
-    bookingForm.style.display = '';
+    bookingFormWrap.style.display = '';
     formSuccess.classList.remove('show');
   }
 
@@ -908,7 +914,7 @@
       return;
     }
 
-    bookingForm.style.display = 'none';
+    bookingFormWrap.style.display = 'none';
     formSuccess.classList.add('show');
     setTimeout(() => {
       closeBookingModal();
