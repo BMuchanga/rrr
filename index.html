@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vantage Systems — IT Infrastructure & Support</title>
+<title>Clusterform — IT Infrastructure & Support</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 
   :root{
@@ -18,26 +18,17 @@
     --ash-gray: #8B98A8;
     --white: #FFFFFF;
 
-    --font-display: 'Space Grotesk', sans-serif;
+    --font-display: 'Bricolage Grotesque', sans-serif;
     --font-body: 'Inter', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-mono: 'Space Mono', monospace;
 
-    --nav-height: 72px;
+    --nav-height: 88px;
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
-
   html{ scroll-behavior:auto; }
-
-  body{
-    font-family: var(--font-body);
-    background: var(--cloud-white);
-    color: var(--ink-navy);
-    line-height: 1.5;
-  }
-
+  body{ font-family: var(--font-body); background: var(--ink-navy); color: var(--ink-navy); line-height:1.6; }
   a{ color:inherit; text-decoration:none; }
-
   section{ scroll-margin-top: var(--nav-height); }
 
   .eyebrow{
@@ -46,669 +37,195 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--steel-blue);
-    display:flex;
-    align-items:center;
-    gap:0.5rem;
+    display:flex; align-items:center; justify-content:center; gap:0.5rem;
     margin-bottom: 1rem;
   }
+  .eyebrow::before{ content:"//"; color: var(--ash-gray); }
 
-  .eyebrow::before{
-    content:"//";
-    color: var(--ash-gray);
-  }
-
-  /* ---------- NAV / HEADER ---------- */
-
+  /* ---------- FLOATING PILL NAV (from Website 2) ---------- */
+  .nav-wrap{ position: sticky; top: 16px; z-index:100; display:flex; justify-content:center; padding: 0 1rem; }
   header.nav{
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    height: var(--nav-height);
-    background: var(--ink-navy);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: 0 clamp(1.25rem, 4vw, 3rem);
-    border-bottom: 1px solid rgba(95,209,222,0.15);
+    width:100%; max-width: 1100px;
+    background: var(--cloud-white);
+    border-radius: 999px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 0.75rem 1.75rem;
+    box-shadow: 0 8px 24px rgba(11,30,51,0.18);
   }
-
   .brand{
-    display:flex;
-    align-items:center;
-    gap:0.65rem;
-    font-family: var(--font-display);
-    font-weight:700;
-    font-size: 1.15rem;
-    color: var(--white);
-    letter-spacing: 0.01em;
+    display:flex; align-items:center; gap:0.65rem;
+    font-family: var(--font-display); font-weight:700;
+    font-size: 1.1rem; color: var(--ink-navy);
   }
 
+  /* Original circular pulse indicator */
   .status-dot{
-    width:9px;
-    height:9px;
+    width:9px; height:9px;
     border-radius:50%;
-    background: var(--signal-cyan);
-    box-shadow: 0 0 0 0 rgba(95,209,222,0.6);
+    background: var(--ink-navy);
+    box-shadow: 0 0 0 0 rgba(11,30,51,0.6);
     animation: pulse 2.2s infinite;
     flex-shrink:0;
   }
-
   @keyframes pulse{
-    0%   { box-shadow: 0 0 0 0 rgba(95,209,222,0.55); }
-    70%  { box-shadow: 0 0 0 8px rgba(95,209,222,0); }
-    100% { box-shadow: 0 0 0 0 rgba(95,209,222,0); }
+    0%   { box-shadow: 0 0 0 0 rgba(11,30,51,0.55); }
+    70%  { box-shadow: 0 0 0 8px rgba(11,30,51,0); }
+    100% { box-shadow: 0 0 0 0 rgba(11,30,51,0); }
   }
 
-  /* Triangular status indicator next to the business name */
-  .brand .status-dot{
-    position: relative;
-    width:10px;
-    height:9px;
-    border-radius:0;
-    background: var(--signal-cyan);
-    box-shadow: none;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    animation: none;
-  }
-
-  .brand .status-dot::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background: var(--signal-cyan);
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    animation: pulse-triangle 2s ease-out infinite;
-  }
-
-  @keyframes pulse-triangle{
-    0%   { transform: scale(1);   opacity: 0.7; }
-    100% { transform: scale(2.6); opacity: 0; }
-  }
-
-  .nav-links{
-    display:flex;
-    gap: clamp(1rem, 2.5vw, 2.25rem);
-    list-style:none;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .nav-links li a{
-    color: var(--ash-gray);
-    position:relative;
-    padding: 0.25rem 0;
-    transition: color 0.2s ease;
-    cursor:pointer;
-  }
-
-  .nav-links li a:hover{ color: var(--signal-cyan); }
-
-  .nav-links li a::after{
-    content:"";
-    position:absolute;
-    left:0; bottom:-2px;
-    width:0%;
-    height:1.5px;
-    background: var(--signal-cyan);
-    transition: width 0.25s ease;
-  }
-
+  .nav-links{ display:flex; gap: clamp(1rem, 2.5vw, 1.75rem); list-style:none; font-family: var(--font-mono); font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase; }
+  .nav-links li a{ color: var(--steel-blue); position:relative; padding:0.25rem 0; transition: color 0.2s ease; cursor:pointer; }
+  .nav-links li a:hover{ color: var(--ink-navy); }
+  .nav-links li a::after{ content:""; position:absolute; left:0; bottom:-2px; width:0%; height:1.5px; background: var(--signal-cyan); transition: width 0.25s ease; }
   .nav-links li a:hover::after{ width:100%; }
+  .nav-toggle{ display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:0.5rem; }
+  .nav-toggle span{ width:22px; height:2px; background: var(--ink-navy); display:block; }
 
-  .nav-toggle{
-    display:none;
-    flex-direction:column;
-    gap:5px;
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding: 0.5rem;
+  @media (max-width: 700px){
+    .nav-links{ display:none; position:absolute; top:70px; left:1rem; right:1rem; background: var(--cloud-white); flex-direction:column; padding:1.25rem 1.5rem; gap:1.1rem; border-radius:20px; box-shadow: 0 8px 24px rgba(11,30,51,0.18); }
+    .nav-links.open{ display:flex; }
+    .nav-toggle{ display:flex; }
   }
 
-  .nav-toggle span{
-    width:22px;
-    height:2px;
-    background: var(--white);
-    display:block;
+  /* ---------- ABOUT: centered hero + inline CTA (from Website 3) ---------- */
+  #about{ position:relative; min-height: 88vh; display:flex; align-items:center; justify-content:center; text-align:center; padding: clamp(1.5rem, 6vw, 5rem); color: var(--white); overflow:hidden; background: var(--ink-navy); }
+  .bg-slides{ position:absolute; inset:0; z-index:0; }
+  .bg-slide{ position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transform:scale(1.08); transition:opacity 1.6s ease; animation: kenburns 9s ease-in-out infinite alternate; animation-play-state:paused; }
+  .bg-slide.active{ opacity:1; animation-play-state:running; }
+  @keyframes kenburns{ from{ transform:scale(1.08); } to{ transform:scale(1.16) translate(-1.5%,-1%); } }
+  .bg-overlay{ position:absolute; inset:0; z-index:1; background: rgba(11,30,51,0.68); }
+  .about-inner{ position:relative; z-index:2; max-width: 720px; }
+  .about-caption{ font-family: var(--font-display); font-weight:700; font-size: clamp(2rem, 5vw, 3.5rem); line-height:1.15; }
+  .about-sub{ font-size:1.05rem; color: var(--ash-gray); margin-top:1.25rem; max-width:560px; margin-left:auto; margin-right:auto; }
+  .about-cta{
+    display:inline-block; margin-top:2rem;
+    font-family: var(--font-display); font-weight:700; font-size:0.95rem;
+    color: var(--ink-navy); background: var(--signal-cyan);
+    padding: 0.9rem 2rem; border:none; cursor:pointer; transition: background 0.2s ease;
   }
+  .about-cta:hover{ background: var(--white); }
 
-  /* ---------- ABOUT (hero) ---------- */
+  /* ---------- WHAT WE DO: static responsive grid (from Website 3) ---------- */
+  #services{ background: var(--deep-slate); color: var(--white); padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3.5rem); }
+  .section-head{ max-width: 700px; margin-bottom: 2.5rem; }
+  .section-head h2{ font-family: var(--font-display); font-weight:700; font-size: clamp(1.75rem, 3.5vw, 2.5rem); }
+  #services .section-head p{ color: var(--ash-gray); margin-top:0.75rem; }
 
-  #about{
-    position:relative;
-    min-height: 100svh;
-    display:flex;
-    align-items:flex-end;
-    padding: clamp(1.5rem, 6vw, 5rem);
-    color: var(--white);
-    overflow:hidden;
-    background: var(--ink-navy); /* fallback while images load */
+  .service-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.25rem;
   }
-
-  /* Crossfading background slides — Patreon-style hero transition */
-  .bg-slides{
-    position:absolute;
-    inset:0;
-    z-index:0;
-  }
-
-  .bg-slide{
-    position:absolute;
-    inset:0;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity:0;
-    transform: scale(1.08);
-    transition: opacity 1.6s ease;
-    animation: kenburns 9s ease-in-out infinite alternate;
-    animation-play-state: paused;
-  }
-
-  .bg-slide.active{
-    opacity:1;
-    animation-play-state: running;
-  }
-
-  @keyframes kenburns{
-    from{ transform: scale(1.08) translate(0,0); }
-    to{ transform: scale(1.16) translate(-1.5%, -1%); }
-  }
-
-  .bg-overlay{
-    position:absolute;
-    inset:0;
-    z-index:1;
-    background: linear-gradient(180deg, rgba(11,30,51,0.45) 0%, rgba(11,30,51,0.6) 45%, rgba(11,30,51,0.97) 100%);
-    pointer-events:none;
-  }
-
-  .bg-grid{
-    position:absolute;
-    inset:0;
-    z-index:2;
-    background-image:
-      linear-gradient(rgba(95,209,222,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(95,209,222,0.06) 1px, transparent 1px);
-    background-size: clamp(24px, 4vw, 42px) clamp(24px, 4vw, 42px);
-    pointer-events:none;
-  }
-
-  .about-inner{
-    position:relative;
-    z-index:3;
-    max-width: 900px;
-    width:100%;
-  }
-
-  .about-inner .eyebrow{ color: var(--signal-cyan); }
-  .about-inner .eyebrow::before{ color: rgba(255,255,255,0.5); }
-
-  .about-caption{
-    font-family: var(--font-display);
-    font-weight:700;
-    font-size: clamp(2rem, 6vw, 4.5rem);
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-  }
-
-  .about-sub{
-    font-family: var(--font-mono);
-    font-size: clamp(0.8rem, 1.6vw, 0.9rem);
-    color: var(--ash-gray);
-    margin-top: 1.25rem;
-    max-width: 520px;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .bg-slide{ animation: none !important; transform:none !important; }
-  }
-
-  /* ---------- SERVICES ---------- */
-
-  #services{
-    background: var(--deep-slate);
-    color: var(--white);
-    padding: clamp(3rem, 6vw, 5rem) 0;
-  }
-
-  .section-head{
-    padding: 0 clamp(1.25rem, 4vw, 3rem);
-    max-width: 700px;
-    margin-bottom: 2.5rem;
-  }
-
-  .section-head h2{
-    font-family: var(--font-display);
-    font-weight:700;
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  }
-
-  #services .section-head p{
-    color: var(--ash-gray);
-    margin-top: 0.75rem;
-  }
-
-  .carousel-track-wrap{
-    overflow:hidden;
-    position:relative;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
-  }
-
-  .carousel-track{
-    display:flex;
-    width: max-content;
-    animation: scroll-left 28s linear infinite;
-  }
-
-  .carousel-track:hover{ animation-play-state: paused; }
-
-  @keyframes scroll-left{
-    from{ transform: translateX(0); }
-    to{ transform: translateX(-50%); }
-  }
-
   .service-card{
     position:relative;
-    flex-shrink:0;
-    width: 260px;
-    margin: 0 0.75rem;
     padding: 1.75rem 1.5rem;
     border: 1px solid rgba(95,209,222,0.25);
     background: rgba(255,255,255,0.02);
-    font-family: var(--font-body);
-  }
-
-  .service-card::before,
-  .service-card::after{
-    content:"";
-    position:absolute;
-    width:14px;
-    height:14px;
-    border-color: var(--signal-cyan);
-    border-style: solid;
-  }
-
-  .service-card::before{
-    top:-1px; left:-1px;
-    border-width: 2px 0 0 2px;
-  }
-
-  .service-card::after{
-    bottom:-1px; right:-1px;
-    border-width: 0 2px 2px 0;
-  }
-
-  .service-card h3{
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    margin-bottom: 0.6rem;
-  }
-
-  .service-card p{
-    font-size: 0.88rem;
-    color: var(--ash-gray);
-  }
-
-  /* ---------- CLIENTELE ---------- */
-
-  #clientele{
-    background: var(--deep-slate);
-    color: var(--white);
-    padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem);
-  }
-
-  #clientele .section-head{ padding:0; }
-
-  #clientele .section-head p{ color: var(--ash-gray); }
-
-  .client-grid{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .client-card{
-    border: 1px solid rgba(95,209,222,0.25);
-    background: #F6F8FF;
-    padding: 2rem 1.5rem;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap: 1rem;
     transition: border-color 0.2s ease, transform 0.2s ease;
   }
+  .service-card:hover{ border-color: var(--signal-cyan); transform: translateY(-4px); }
+  .service-card h3{ font-family: var(--font-display); font-weight:700; font-size:1.1rem; margin-bottom:0.6rem; }
+  .service-card p{ font-size:0.88rem; color: var(--ash-gray); }
 
-  .client-card:hover{
-    border-color: var(--signal-cyan);
-    transform: translateY(-3px);
-  }
+  /* ---------- CLIENTELE: marquee carousel (from Website 3) ---------- */
+  #clientele{ background: var(--deep-slate); color: var(--white); padding: clamp(3rem, 6vw, 5rem) 0; border-top: 1px solid rgba(95,209,222,0.1); }
+  #clientele .section-head{ padding: 0 clamp(1.25rem, 4vw, 3.5rem); max-width:700px; margin-bottom:2.5rem; }
+  #clientele .section-head p{ color: var(--ash-gray); }
 
-  .client-mark{
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    background: var(--signal-cyan);
-    color: var(--ink-navy);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family: var(--font-display);
-    font-weight:700;
-    font-size:1.1rem;
-  }
+  .carousel-track-wrap{ overflow:hidden; position:relative; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%); }
+  .carousel-track{ display:flex; width:max-content; animation: scroll-left 26s linear infinite; }
+  .carousel-track:hover{ animation-play-state:paused; }
+  @keyframes scroll-left{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
 
-  .client-card h3{
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    color: var(--ink-navy);
-  }
+  .client-card{ flex-shrink:0; width: 300px; margin: 0 0.75rem; padding: 1.75rem 1.5rem; border: 1px solid rgba(95,209,222,0.25); background: #F6F8FF; color: var(--ink-navy); }
+  .client-mark{ width:44px; height:44px; border-radius:50%; background: var(--ink-navy); color: var(--signal-cyan); display:flex; align-items:center; justify-content:center; font-family: var(--font-display); font-weight:700; font-size:0.9rem; margin-bottom:1rem; }
+  .client-card h3{ font-family: var(--font-display); font-weight:700; font-size:1rem; margin-bottom:0.5rem; }
+  .client-card p{ font-size:0.85rem; color:#5A6B80; }
 
-  .client-card p{
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: #5A6B80;
-    line-height:1.6;
-  }
-
-  /* ---------- CONTACT / FOOTER ---------- */
-
-  #contact{
-    background: var(--ink-navy);
-    color: var(--white);
-    padding: 2.5rem clamp(1.25rem, 4vw, 3rem);
-    text-align:center;
-  }
-
-  .footer-links{
-    display:flex;
-    justify-content:center;
-    gap: clamp(1.5rem, 4vw, 3rem);
-    flex-wrap: wrap;
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .footer-links a{
-    color: var(--white);
-    border-bottom: 1px solid rgba(95,209,222,0.35);
-    padding-bottom: 2px;
-    transition: color 0.2s ease, border-color 0.2s ease;
-  }
-
-  .footer-links a:hover{
-    color: var(--signal-cyan);
-    border-color: var(--signal-cyan);
-  }
-
-  .footer-note{
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--ash-gray);
-    letter-spacing: 0.05em;
-  }
+  /* ---------- FOOTER (retained) ---------- */
+  #contact{ background: var(--ink-navy); color: var(--white); padding: 2.5rem clamp(1.25rem, 4vw, 3rem); text-align:center; }
+  .footer-links{ display:flex; justify-content:center; gap: clamp(1.5rem, 4vw, 3rem); flex-wrap:wrap; font-family: var(--font-mono); font-size:0.9rem; margin-bottom:1rem; }
+  .footer-links a{ color: var(--white); border-bottom:1px solid rgba(95,209,222,0.35); padding-bottom:2px; transition: color 0.2s ease, border-color 0.2s ease; }
+  .footer-links a:hover{ color: var(--signal-cyan); border-color: var(--signal-cyan); }
+  .footer-note{ font-family: var(--font-mono); font-size:0.7rem; color: var(--ash-gray); letter-spacing:0.05em; }
 
   /* ---------- BOOK APPOINTMENT MODAL ---------- */
-
-  .modal-overlay{
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    background: rgba(11,30,51,0.72);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-  }
-
+  .modal-overlay{ position:fixed; inset:0; z-index:200; background: rgba(11,30,51,0.72); display:none; align-items:center; justify-content:center; padding:1.5rem; }
   .modal-overlay.open{ display:flex; }
-
-  .modal-box{
-    position: relative;
-    width: 100%;
-    max-width: 440px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: var(--cloud-white);
-    border: 1px solid rgba(47,102,144,0.3);
-    padding: clamp(1.75rem, 4vw, 2.5rem);
-  }
-
-  .modal-box::before,
-  .modal-box::after{
-    content:"";
-    position:absolute;
-    width:16px;
-    height:16px;
-    border-color: var(--steel-blue);
-    border-style: solid;
-  }
-
+  .modal-box{ position:relative; width:100%; max-width:440px; max-height:90vh; overflow-y:auto; background: var(--white); border:1px solid rgba(47,102,144,0.3); padding: clamp(1.75rem, 4vw, 2.5rem); }
+  .modal-box::before, .modal-box::after{ content:""; position:absolute; width:16px; height:16px; border-color: var(--steel-blue); border-style: solid; }
   .modal-box::before{ top:-1px; left:-1px; border-width: 2px 0 0 2px; }
   .modal-box::after{ bottom:-1px; right:-1px; border-width: 0 2px 2px 0; }
-
-  .modal-close{
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 32px;
-    height: 32px;
-    border: 1px solid #C7D1DC;
-    background: var(--white);
-    color: var(--ink-navy);
-    font-size: 1.1rem;
-    line-height: 1;
-    cursor: pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition: border-color 0.2s ease, color 0.2s ease;
-  }
-
-  .modal-close:hover{
-    border-color: var(--steel-blue);
-    color: var(--steel-blue);
-  }
-
-  .modal-box .eyebrow{ margin-bottom: 0.5rem; }
-
-  .modal-box h2{
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--ink-navy);
-    margin-bottom: 1.5rem;
-  }
-
-  .form-field{
-    display:flex;
-    flex-direction:column;
-    gap: 0.4rem;
-    margin-bottom: 1.1rem;
-  }
-
-  .form-field label{
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--steel-blue);
-  }
-
-  .form-field input,
-  .form-field select{
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: var(--ink-navy);
-    background: var(--white);
-    border: 1px solid #C7D1DC;
-    padding: 0.65rem 0.75rem;
-    outline: none;
-    transition: border-color 0.2s ease;
-  }
-
-  .form-field input:focus,
-  .form-field select:focus{
-    border-color: var(--steel-blue);
-  }
-
-  .form-row{
-    display:flex;
-    gap: 0.9rem;
-  }
-
+  .modal-close{ position:absolute; top:1rem; right:1rem; width:32px; height:32px; border:1px solid #C7D1DC; background: var(--white); color: var(--ink-navy); font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition: border-color 0.2s ease, color 0.2s ease; }
+  .modal-close:hover{ border-color: var(--steel-blue); color: var(--steel-blue); }
+  .modal-box h2{ font-family: var(--font-display); font-weight:700; font-size:1.5rem; margin-bottom:1.5rem; }
+  .form-field{ display:flex; flex-direction:column; gap:0.4rem; margin-bottom:1.1rem; }
+  .form-field label{ font-family: var(--font-mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color: var(--steel-blue); }
+  .form-field input, .form-field select{ font-family: var(--font-body); font-size:0.9rem; color: var(--ink-navy); background: var(--white); border:1px solid #C7D1DC; padding:0.65rem 0.75rem; outline:none; transition: border-color 0.2s ease; }
+  .form-field input:focus, .form-field select:focus{ border-color: var(--steel-blue); }
+  .form-row{ display:flex; gap:0.9rem; }
   .form-row .form-field{ flex:1; margin-bottom:0; }
-
-  .form-actions{ margin-top: 1.5rem; }
-
-  .btn-submit{
-    width:100%;
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--white);
-    background: var(--ink-navy);
-    border: none;
-    padding: 0.85rem 1rem;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-
+  .btn-submit{ width:100%; font-family: var(--font-mono); font-size:0.85rem; text-transform:uppercase; letter-spacing:0.06em; color: var(--white); background: var(--ink-navy); border:none; padding:0.85rem 1rem; cursor:pointer; margin-top:1.5rem; transition: background 0.2s ease; }
   .btn-submit:hover{ background: var(--steel-blue); }
-
-  .form-success{
-    display:none;
-    text-align:center;
-    padding: 1rem 0;
-  }
-
+  .form-success{ display:none; text-align:center; padding:1rem 0; }
   .form-success.show{ display:block; }
+  .form-success h3{ font-family: var(--font-display); font-weight:700; font-size:1.2rem; margin-bottom:0.5rem; }
+  .form-success p{ font-family: var(--font-mono); font-size:0.82rem; color:#5A6B80; }
 
-  .form-success .status-dot{ margin: 0 auto 1rem; }
-
-  .form-success h3{
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--ink-navy);
-    margin-bottom: 0.5rem;
-  }
-
-  .form-success p{
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: #5A6B80;
-  }
-
-  @media (max-width: 480px){
-    .form-row{ flex-direction:column; gap:1.1rem; }
-  }
-
-  /* ---------- RESPONSIVE ---------- */
-
-  @media (max-width: 820px){
-    .client-grid{ grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 680px){
-    .nav-links{
-      position:absolute;
-      top: var(--nav-height);
-      left:0;
-      right:0;
-      background: var(--ink-navy);
-      flex-direction:column;
-      align-items:flex-start;
-      padding: 1.25rem clamp(1.25rem, 4vw, 3rem);
-      gap: 1.1rem;
-      border-bottom: 1px solid rgba(95,209,222,0.15);
-      display:none;
-    }
-    .nav-links.open{ display:flex; }
-    .nav-toggle{ display:flex; }
-
-    #about{
-      min-height: 78svh;
-      align-items:center;
-      text-align:center;
-    }
-    .about-inner{ max-width:100%; }
-    .about-sub{ margin-left:auto; margin-right:auto; }
-
-    .service-card{ width: 220px; }
-
-    .footer-links{ flex-direction:column; gap:0.9rem; }
-  }
-
-  @media (max-width: 420px){
-    #about{ min-height: 72svh; padding: 1.25rem; }
-    .about-caption{ font-size: clamp(1.75rem, 8vw, 2.25rem); }
-    .service-card{ width: 190px; padding: 1.4rem 1.1rem; }
-  }
+  @media (max-width: 480px){ .form-row{ flex-direction:column; gap:1.1rem; } }
 
   @media (prefers-reduced-motion: reduce){
-    .carousel-track{ animation: none; }
-    .status-dot{ animation: none; }
-    .brand .status-dot::after{ animation: none; display:none; }
-    *{ transition: none !important; }
+    .status-dot{ animation:none; }
+    .bg-slide{ animation:none !important; transform:none !important; }
+    .carousel-track{ animation:none; }
+    *{ transition:none !important; }
   }
 
 </style>
 </head>
 <body>
 
-  <header class="nav">
-    <div class="brand">
-      <span class="status-dot"></span>
-      CLUSTERFORM
-    </div>
-    <ul class="nav-links" id="navLinks">
-      <li><a data-target="about">About</a></li>
-      <li><a data-target="services">Services</a></li>
-      <li><a data-target="clientele">Clientele</a></li>
-      <li><a data-target="contact">Contact</a></li>
-    </ul>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+  <div class="nav-wrap">
+    <header class="nav">
+      <div class="brand"><span class="status-dot"></span>Clusterform</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a data-target="about">About</a></li>
+        <li><a data-target="services">Services</a></li>
+        <li><a data-target="clientele">Clientele</a></li>
+        <li><a data-target="contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </header>
+  </div>
 
   <section id="about">
     <div class="bg-slides" id="bgSlides"></div>
     <div class="bg-overlay"></div>
-    <div class="bg-grid"></div>
     <div class="about-inner">
       <div class="eyebrow">Status: Operational</div>
       <h1 class="about-caption">Infrastructure built to last.</h1>
       <p class="about-sub">We design, deploy and maintain the systems that keep your business running — networks, servers and support, handled end to end.</p>
+      <button class="about-cta" id="heroBookBtn">Book An Appointment</button>
     </div>
   </section>
 
   <section id="services">
     <div class="section-head">
-      <div class="eyebrow">Services</div>
+      <div class="eyebrow" style="justify-content:flex-start;">Services</div>
       <h2>What we do</h2>
       <p>Multiple disciplines, one accountable team.</p>
     </div>
-    <div class="carousel-track-wrap">
-      <div class="carousel-track" id="carouselTrack">
-        <!-- cards injected by JS (duplicated for seamless loop) -->
-      </div>
-    </div>
+    <div class="service-grid" id="serviceGrid"></div>
   </section>
 
   <section id="clientele">
     <div class="section-head">
-      <div class="eyebrow">Clientele</div>
+      <div class="eyebrow" style="justify-content:flex-start;">Clientele</div>
       <h2>Who we work with</h2>
       <p>A few of the organisations that trust us with their systems.</p>
     </div>
-    <div class="client-grid" id="clientGrid">
-      <!-- cards injected by JS -->
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="carouselTrack"></div>
     </div>
   </section>
 
@@ -721,26 +238,15 @@
     <p class="footer-note">&copy; 2026 CLUSTERFORM.TECH — ALL SYSTEMS FUNCTIONAL</p>
   </footer>
 
-  <!-- Book Appointment Modal -->
   <div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
     <div class="modal-box">
       <button class="modal-close" id="modalCloseBtn" aria-label="Close">&times;</button>
-
       <div id="bookingFormWrap">
-        <div class="eyebrow">Contact</div>
+        <div class="eyebrow" style="justify-content:flex-start;">Contact</div>
         <h2 id="bookingModalTitle">Book an appointment</h2>
-
         <form id="bookingForm" novalidate>
-          <div class="form-field">
-            <label for="clientName">Full Name</label>
-            <input type="text" id="clientName" name="clientName" required autocomplete="name">
-          </div>
-
-          <div class="form-field">
-            <label for="companyName">Company Name</label>
-            <input type="text" id="companyName" name="companyName" autocomplete="organization">
-          </div>
-
+          <div class="form-field"><label for="clientName">Full Name</label><input type="text" id="clientName" name="clientName" required autocomplete="name"></div>
+          <div class="form-field"><label for="companyName">Company Name</label><input type="text" id="companyName" name="companyName" autocomplete="organization"></div>
           <div class="form-field">
             <label for="serviceSelect">Service</label>
             <select id="serviceSelect" name="service" required>
@@ -750,74 +256,55 @@
               <option value="Cybersecurity">Cybersecurity</option>
               <option value="Cloud Solutions">Cloud Solutions</option>
               <option value="Systems Administration">Systems Administration</option>
-              <option value="Software & App Development">Software & App Development</option>
-              <option value="IT Consulting & Training">IT Consulting & Training</option>
+              <option value="AI Systems">AI Systems</option>
+              <option value="Custom Builds">Custom Builds</option>
             </select>
           </div>
-
           <div class="form-row">
-            <div class="form-field">
-              <label for="apptDate">Date</label>
-              <input type="date" id="apptDate" name="apptDate" required>
-            </div>
-            <div class="form-field">
-              <label for="apptTime">Time</label>
-              <input type="time" id="apptTime" name="apptTime" required>
-            </div>
+            <div class="form-field"><label for="apptDate">Date</label><input type="date" id="apptDate" name="apptDate" required></div>
+            <div class="form-field"><label for="apptTime">Time</label><input type="time" id="apptTime" name="apptTime" required></div>
           </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn-submit">Request Appointment</button>
-          </div>
+          <button type="submit" class="btn-submit">Request Appointment</button>
         </form>
       </div>
-
       <div class="form-success" id="formSuccess">
-        <span class="status-dot" style="position:static;"></span>
         <h3>Appointment booked</h3>
-        <p>Confirm your appointment by email shortly.</p>
+        <p>We'll confirm your appointment by email shortly.</p>
       </div>
     </div>
   </div>
 
 <script>
-  // ---------- Data ----------
   const services = [
     { title: "Network Infrastructure", desc: "Design, cabling and configuration of wired and wireless networks." },
     { title: "Managed IT Support", desc: "Day-to-day helpdesk, monitoring and rapid response." },
-    { title: "Cybersecurity", desc: "Threat monitoring, endpoint protection,IAM and systems hardening." },
+    { title: "Cybersecurity", desc: "Threat monitoring, endpoint protection, IAM and systems hardening." },
     { title: "Cloud Solutions", desc: "Migration, backup and management of cloud infrastructure and storage." },
-    { title: "Systems Administration", desc: "Server creation,maintenance and performance tuning." },
+    { title: "Systems Administration", desc: "Server provisioning, maintenance and performance tuning." },
     { title: "AI Systems", desc: "Local and cloud-based artificial intelligence solutions." },
-    { title: "Custom Builds", desc: "PCs,servers,mainframes,embedded devices,POS systems & IOT." }
+    { title: "Custom Builds", desc: "PCs, servers, mainframes, embedded devices, POS systems and IoT devices." }
   ];
 
   const clients = [
-    { initials: "KNADS", name: "Kenya National Archives & Documentation Services", caption: "Creation and maintenance of ATOM Archiving system, Network restructuring and maintenance." },
-    { initials: "RAIN", name: "Rain(pty) Ltd South Africa", caption: "Design and deployment of NVIDIA server clusters,suppporting GeForce Now implementation,technical consultancy." },
-    { initials: "CARREFOUR", name: "Carrefour Uganda", caption: "Logical systems design for POS and security systems,mainframe assembly and customization." }
+    { initials: "KNADS", name: "Kenya National Archives & Documentation Services", caption: "Creation and maintenance of the ATOM archiving system, alongside network restructuring and upkeep." },
+    { initials: "RAIN", name: "Rain (Pty) Ltd, South Africa", caption: "Design and deployment of NVIDIA server clusters supporting the GeForce Now rollout, plus ongoing technical consultancy." },
+    { initials: "CARREFOUR", name: "Carrefour Uganda", caption: "Logical systems design for POS and security systems, along with mainframe assembly and customization." }
   ];
 
-  // ---------- About hero: crossfading IT/systems background slides ----------
   const heroImages = [
-    "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1800&q=80", // server racks
-    "https://images.unsplash.com/photo-1591405351990-4726e331f141?auto=format&fit=crop&w=1800&q=80", // network cables/switch
-    "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1800&q=80", // data center aisle
-    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1800&q=80", // code on screen, close-up
-    "https://images.unsplash.com/photo-1580584126903-c17d41830450?auto=format&fit=crop&w=1800&q=80"  // network switch / router hardware
+    "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80",
+    "https://images.unsplash.com/photo-1591405351990-4726e331f141?auto=format&fit=crop&w=1600&q=80",
+    "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1600&q=80",
+    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1600&q=80",
+    "https://images.unsplash.com/photo-1580584126903-c17d41830450?auto=format&fit=crop&w=1600&q=80"
   ];
 
   const bgSlidesEl = document.getElementById('bgSlides');
-  bgSlidesEl.innerHTML = heroImages
-    .map(url => `<div class="bg-slide" style="background-image:url('${url}')"></div>`)
-    .join('');
-
+  bgSlidesEl.innerHTML = heroImages.map(url => `<div class="bg-slide" style="background-image:url('${url}')"></div>`).join('');
   const slides = bgSlidesEl.querySelectorAll('.bg-slide');
   let currentSlide = 0;
   slides[0].classList.add('active');
-
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   if (slides.length > 1 && !prefersReducedMotion) {
     setInterval(() => {
       slides[currentSlide].classList.remove('active');
@@ -826,29 +313,21 @@
     }, 5000);
   }
 
-  // ---------- Render services (duplicated once for seamless marquee) ----------
-  const track = document.getElementById('carouselTrack');
-  const renderServiceCard = (s) => `
-    <div class="service-card">
-      <h3>${s.title}</h3>
-      <p>${s.desc}</p>
-    </div>
-  `;
-  const serviceHTML = services.map(renderServiceCard).join('');
-  track.innerHTML = serviceHTML + serviceHTML; // duplicate for seamless loop
+  document.getElementById('serviceGrid').innerHTML = services.map(s => `
+    <div class="service-card"><h3>${s.title}</h3><p>${s.desc}</p></div>
+  `).join('');
 
-  // ---------- Render clientele ----------
-  const clientGrid = document.getElementById('clientGrid');
-  clientGrid.innerHTML = clients.map(c => `
+  const track = document.getElementById('carouselTrack');
+  const clientHTML = clients.map(c => `
     <div class="client-card">
       <div class="client-mark">${c.initials}</div>
       <h3>${c.name}</h3>
       <p>${c.caption}</p>
     </div>
   `).join('');
+  track.innerHTML = clientHTML + clientHTML;
 
-  // ---------- Nav: smooth scroll with sticky-header offset ----------
-  const navHeight = document.querySelector('header.nav').offsetHeight;
+  const navHeight = 100;
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
       const target = document.getElementById(link.dataset.target);
@@ -856,19 +335,17 @@
         const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight + 1;
         window.scrollTo({ top, behavior: 'smooth' });
       }
-      // close mobile menu after click
       document.getElementById('navLinks').classList.remove('open');
     });
   });
 
-  // ---------- Mobile menu toggle ----------
   document.getElementById('navToggle').addEventListener('click', () => {
     document.getElementById('navLinks').classList.toggle('open');
   });
 
-  // ---------- Book Appointment modal ----------
   const bookingModal = document.getElementById('bookingModal');
   const bookAppointmentLink = document.getElementById('bookAppointmentLink');
+  const heroBookBtn = document.getElementById('heroBookBtn');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
   const bookingForm = document.getElementById('bookingForm');
   const bookingFormWrap = document.getElementById('bookingFormWrap');
@@ -881,12 +358,10 @@
     const firstField = document.getElementById('clientName');
     if (firstField) firstField.focus();
   }
-
   function closeBookingModal(){
     bookingModal.classList.remove('open');
     document.body.style.overflow = '';
   }
-
   function resetBookingModal(){
     bookingForm.reset();
     bookingFormWrap.style.display = '';
@@ -894,32 +369,17 @@
   }
 
   bookAppointmentLink.addEventListener('click', openBookingModal);
+  heroBookBtn.addEventListener('click', openBookingModal);
   modalCloseBtn.addEventListener('click', closeBookingModal);
+  bookingModal.addEventListener('click', (e) => { if (e.target === bookingModal) closeBookingModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && bookingModal.classList.contains('open')) closeBookingModal(); });
 
-  // close when clicking the dark backdrop (not the box itself)
-  bookingModal.addEventListener('click', (e) => {
-    if (e.target === bookingModal) closeBookingModal();
-  });
-
-  // close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && bookingModal.classList.contains('open')) closeBookingModal();
-  });
-
-  // handle submit (no backend wired up yet — swap this for a real API/email call)
   bookingForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (!bookingForm.checkValidity()) {
-      bookingForm.reportValidity();
-      return;
-    }
-
+    if (!bookingForm.checkValidity()) { bookingForm.reportValidity(); return; }
     bookingFormWrap.style.display = 'none';
     formSuccess.classList.add('show');
-    setTimeout(() => {
-      closeBookingModal();
-      resetBookingModal();
-    }, 2200);
+    setTimeout(() => { closeBookingModal(); resetBookingModal(); }, 2200);
   });
 </script>
 
