@@ -138,6 +138,8 @@
   @keyframes scroll-left{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
 
   .client-card{ flex-shrink:0; width: 300px; margin: 0 0.75rem; padding: 1.75rem 1.5rem; border: 1px solid rgba(95,209,222,0.25); background: #F6F8FF; color: var(--ink-navy); }
+  .client-logo-wrap{ width:140px; height:56px; display:flex; align-items:center; justify-content:flex-start; margin-bottom: 1rem; }
+  .client-logo{ display:block; max-width:100%; max-height:100%; width:auto; height:auto; object-fit: contain; }
   .client-mark{ width:44px; height:44px; border-radius:50%; background: var(--ink-navy); color: var(--signal-cyan); display:flex; align-items:center; justify-content:center; font-family: var(--font-display); font-weight:700; font-size:0.9rem; margin-bottom:1rem; }
   .client-card h3{ font-family: var(--font-display); font-weight:700; font-size:1rem; margin-bottom:0.5rem; }
   .client-card p{ font-size:0.85rem; color:#5A6B80; }
@@ -286,26 +288,26 @@
   ];
 
   const clients = [
-    { initials: "KNADS", name: "Kenya National Archives & Documentation Services", caption: "Creation and maintenance of the ATOM archiving system, alongside network restructuring and upkeep." },
-    { initials: "RAIN", name: "Rain (Pty) Ltd, South Africa", caption: "Design and deployment of NVIDIA server clusters supporting the GeForce Now rollout, plus ongoing technical consultancy." },
-    { initials: "CARREFOUR", name: "Carrefour Uganda", caption: "Logical systems design for POS and security systems, along with mainframe assembly and customization." },
-    { initials: "UNILEVER", name: "Unilever East Africa", caption: "Implementation and maintenance of client-focused computer systems,including U2K2 master data management." },
-    { initials: "UTUMISHI", name: "Utumishi Girls High School", caption: "Replacement of an aging school library system,including database overhaul." },
-    { initials: "KAMILI PACKERS", name: "Kamili Packers Ltd", caption: "Installation of industrial grade PLC systems along with supporting OpenServer UNIX software." }
+    { initials: "KNADS", name: "Kenya National Archives & Documentation Services", caption: "Creation and maintenance of the ATOM archiving system, alongside network restructuring and upkeep.", logo: "images/logos/knads.svg" },
+    { initials: "RAIN", name: "Rain (Pty) Ltd, South Africa", caption: "Design and deployment of NVIDIA server clusters supporting the GeForce Now rollout, plus ongoing technical consultancy.", logo: "images/logos/rain.jpg" },
+    { initials: "CARREFOUR", name: "Carrefour Uganda", caption: "Logical systems design for POS and security systems, along with mainframe assembly and customization.", logo: "images/logos/carrefour.png" },
+    { initials: "UNILEVER", name: "Unilever East Africa", caption: "Implementation and maintenance of client-focused computer systems, including U2K2 master data management.", logo: "images/logos/unilever.png" },
+    { initials: "UTUMISHI", name: "Utumishi Girls High School", caption: "Replacement of an aging school library system, including a full database overhaul.", logo: "images/logos/utumishi.webp" },
+    { initials: "KAMILI PACKERS", name: "Kamili Packers Ltd", caption: "Installation of industrial-grade PLC systems along with supporting OpenServer UNIX software.", logo: "images/logos/kamili.webp" }
   ];
 
   const heroImages = [
-    "Images/hero-01.jpg",
-    "Images/hero-02.jpg",
-    "Images/hero-03.jpg",
-    "Images/hero-04.jpg",
-    "Images/hero-05.jpg",
-    "Images/hero-06.jpg",
-    "Images/hero-07.jpg",
-    "Images/hero-08.jpg",
-    "Images/hero-09.jpg",
-    "Images/hero-10.jpg",
-    "Images/hero-11.jpg"
+    "images/hero-01.jpg",
+    "images/hero-02.jpg",
+    "images/hero-03.jpg",
+    "images/hero-04.jpg",
+    "images/hero-05.jpg",
+    "images/hero-06.jpg",
+    "images/hero-07.jpg",
+    "images/hero-08.jpg",
+    "images/hero-09.jpg",
+    "images/hero-10.jpg",
+    "images/hero-11.jpg"
   ];
 
   const bgSlidesEl = document.getElementById('bgSlides');
@@ -329,7 +331,10 @@
   const track = document.getElementById('carouselTrack');
   const clientHTML = clients.map(c => `
     <div class="client-card">
-      <div class="client-mark">${c.initials}</div>
+      <div class="client-logo-wrap">
+        <img class="client-logo" src="${c.logo}" alt="${c.name} logo"
+             onerror="this.parentElement.outerHTML = '<div class=&quot;client-mark&quot;>${c.initials}</div>'">
+      </div>
       <h3>${c.name}</h3>
       <p>${c.caption}</p>
     </div>
